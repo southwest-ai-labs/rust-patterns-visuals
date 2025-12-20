@@ -49,7 +49,6 @@ jobs:
 
       - name: Run E2E tests
         run: npx playwright test --project=chromium
-        continue-on-error: true
 
       - name: Upload test results
         if: always()
@@ -71,7 +70,7 @@ jobs:
     name: Deploy to GitHub Pages
     needs: build-and-test
     runs-on: ubuntu-latest
-    if: (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main') && needs.build-and-test.result == 'success'
+    if: (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main') && github.event_name == 'push' && needs.build-and-test.result == 'success'
 
     environment:
       name: github-pages
@@ -108,16 +107,27 @@ jobs:
   # Job 3: Status Check
   status:
     name: CI Status
-    needs: build-and-test
+    needs: [build-and-test, deploy]
     runs-on: ubuntu-latest
     if: always()
 
     steps:
       - name: Check build status
         run: |
-          if [ "${{ needs.build-and-test.result }}" != "success" ]; then
+          BUILD_STATUS="${{ needs.build-and-test.result }}"
+          DEPLOY_STATUS="${{ needs.deploy.result }}"
+          
+          echo "Build Status: $BUILD_STATUS"
+          echo "Deploy Status: $DEPLOY_STATUS"
+          
+          if [ "$BUILD_STATUS" != "success" ]; then
             echo "❌ Build or tests failed"
             exit 1
           fi
-
+          
+          if [ "$DEPLOY_STATUS" != "success" ] && [ "$DEPLOY_STATUS" != "skipped" ]; then
+            echo "❌ Deployment failed"
+            exit 1
+          fi
+          
           echo "✅ All checks passed!"
