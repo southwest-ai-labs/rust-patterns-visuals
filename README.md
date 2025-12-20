@@ -7,6 +7,10 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript&logoColor=white)
 ![License](https://img.shields.io/badge/License-Open%20Core-blue)
 
+[![Live Demo](https://img.shields.io/badge/Demo-Live-success?style=for-the-badge)](https://southwest-ai-labs.github.io/rust-patterns-visuals)
+[![Discussions](https://img.shields.io/github/discussions/southwest-ai-labs/rust-patterns-visuals?style=for-the-badge)](https://github.com/southwest-ai-labs/rust-patterns-visuals/discussions)
+[![Issues](https://img.shields.io/github/issues/southwest-ai-labs/rust-patterns-visuals?style=for-the-badge)](https://github.com/southwest-ai-labs/rust-patterns-visuals/issues)
+
 ---
 
 ## 🎯 What is Rust.Hub?
@@ -18,6 +22,8 @@ Rust.Hub is **not just another tutorial platform**—it's a comprehensive learni
 - **Concurrent & distributed systems**
 
 Perfect for developers seeking **L5/Staff-level** expertise in systems engineering.
+
+**🌐 [Try it live](https://southwest-ai-labs.github.io/rust-patterns-visuals)** | **💬 [Join discussions](https://github.com/southwest-ai-labs/rust-patterns-visuals/discussions)** | **💖 [Sponsor](https://github.com/sponsors/southwest-ai-labs)**
 
 ---
 
@@ -60,7 +66,29 @@ Hands-on tools for experimenting with:
 
 ---
 
-## 🚀 Getting Started
+## � GitHub as Backend
+
+Rust.Hub uses **GitHub as a decentralized backend** - no external servers needed!
+
+### 🗄️ **Your Data, Your Control**
+- Progress stored in **your private GitHub repo** (`{username}/rust-patterns-storage`)
+- Full version control of your learning journey
+- Fork and share solutions with the community
+
+### 💬 **Built-in Community**
+- **GitHub Discussions**: Ask questions, share solutions, get help
+- **Issue Templates**: Bug reports and feature requests streamlined
+- **GitHub Pages**: Live deployment at every push
+
+### 💖 **Support Development**
+- **GitHub Sponsors** enabled for supporting new learning modules
+- Transparent contribution tracking
+
+📚 **[Read the full GitHub Backend documentation](docs/GITHUB_BACKEND.md)**
+
+---
+
+## �🚀 Getting Started
 
 ### Prerequisites
 - **Node.js** 18+ 
@@ -71,7 +99,7 @@ Hands-on tools for experimenting with:
 
 ```bash
 # Clone the repository
-git clone https://github.com/iberi22/rust-patterns-visuals.git
+git clone https://github.com/southwest-ai-labs/rust-patterns-visuals.git
 cd rust-patterns-visuals
 
 # Install dependencies
@@ -80,7 +108,7 @@ npm install
 # Start development server
 npm run dev
 
-# Open http://localhost:5173 in your browser
+# Open http://localhost:3000 in your browser
 ```
 
 ### Build for Production
@@ -234,7 +262,10 @@ npm run dev
 - Ensure you're connected to the internet (for AI evaluation)
 - Check GitHub token settings if using persistence
 
-For more help, check our [FAQ](docs/FAQ.md) or open an [issue](https://github.com/iberi22/rust-patterns-visuals/issues).
+For more help:
+- 💬 [Ask in Discussions](https://github.com/southwest-ai-labs/rust-patterns-visuals/discussions)
+- 🐛 [Report an Issue](https://github.com/southwest-ai-labs/rust-patterns-visuals/issues)
+- 📖 [Check FAQ](docs/FAQ.md)
 
 ---
 
@@ -263,7 +294,43 @@ By completing Rust.Hub's curriculum, you'll understand:
 
 ---
 
-##  License
+## 🤝 Contributing
+
+We welcome contributions! Here's how to get involved:
+
+1. 🍴 **Fork the repository**
+2. 🌿 **Create a feature branch** (`git checkout -b feature/amazing-lesson`)
+3. 💻 **Make your changes**
+4. ✅ **Test thoroughly** (`npm run build && npm run dev`)
+5. 📝 **Commit with clear messages** (`git commit -m 'Add: New SIMD lesson'`)
+6. 🚀 **Push to your fork** (`git push origin feature/amazing-lesson`)
+7. 🎯 **Open a Pull Request**
+
+Please read [CONTRIBUTING_GUIDE.md](CONTRIBUTING_GUIDE.md) for detailed guidelines.
+
+### Areas We Need Help With
+- 📚 Creating new learning modules
+- 🐛 Fixing bugs and improving performance
+- 🎨 UI/UX improvements
+- 📖 Documentation and translations
+- 🧪 Writing tests
+
+Join our [Discussions](https://github.com/southwest-ai-labs/rust-patterns-visuals/discussions) to coordinate!
+
+---
+
+## 💖 Support This Project
+
+If you find Rust.Hub valuable, consider:
+- ⭐ **Star this repository** to show your support
+- 💬 **Share it** with fellow Rustaceans
+- 💰 **[Sponsor development](https://github.com/sponsors/southwest-ai-labs)** for new features
+- 🐛 **Report bugs** to help us improve
+- 📝 **Contribute lessons** to help others learn
+
+---
+
+## 📄 License
 
 Rust.Hub is licensed under the **Southwest AI Labs Open Core License v1.0**.
 See [LICENSE.md](LICENSE.md) for full details.
@@ -278,10 +345,11 @@ Special thanks to:
 - The Rust community for continuous inspiration
 - Google Gemini for intelligent mentorship
 - Our beta testers who shaped this platform
+- All contributors who make this project better
 
 ---
 
-**Ready to master Rust? [Start your learning journey now!](http://rusthub.dev)**
+**Ready to master Rust? [Start your learning journey now!](https://southwest-ai-labs.github.io/rust-patterns-visuals)**
 
 ---
 
@@ -289,6 +357,6 @@ Special thanks to:
 
 **Made with ❤️ by Southwest AI Labs**
 
-[Website](https://rusthub.dev) • [Documentation](https://docs.rusthub.dev) • [GitHub](https://github.com/iberi22/rust-patterns-visuals) • [Twitter](https://twitter.com)
+[Live Demo](https://southwest-ai-labs.github.io/rust-patterns-visuals) • [Discussions](https://github.com/southwest-ai-labs/rust-patterns-visuals/discussions) • [Issues](https://github.com/southwest-ai-labs/rust-patterns-visuals/issues) • [Sponsor](https://github.com/sponsors/southwest-ai-labs)
 
 </div>
