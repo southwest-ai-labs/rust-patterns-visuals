@@ -92,14 +92,14 @@ Let's watch the reference count (strong_count) change in real-time.
 \`Rc\` is fast but **not thread-safe**. If you need to share data across threads, you must use \`Arc<T>\` (Atomic Reference Counted). It works exactly like \`Rc\`, but uses atomic hardware instructions to update the counter safely.
 
 > 💎 **Pro Tip: Deref Coercion**
-> 
+>
 > Smart pointers implement the \`Deref\` trait. This allows you to treat \`Box<T>\` or \`Rc<T>\` just like normal references.
-> 
+>
 > \`\`\`rust
 > let s = Box::new(String::from("hello"));
 > // You can call String methods directly on the Box!
 > // Rust automatically dereferences Box -> String -> &str
-> let len = s.len(); 
+> let len = s.len();
 > \`\`\`
 
 ---
@@ -145,7 +145,7 @@ fn main() {
 
     // User is immutable, but we can mutate the field!
     *user.login_count.borrow_mut() += 1;
-    
+
     println!("Logins: {}", user.login_count.borrow());
 }
 \`\`\`
@@ -160,7 +160,7 @@ graph TD
     B -->|No Writer, Any Readers| C[Grant Immutable Borrow]
     B -->|No Writer, No Readers| D[Grant Mutable Borrow]
     B -->|Writer Exists| E[PANIC!]
-    
+
     style E fill:#ef4444,color:#fff
     style D fill:#22c55e,color:#000
 \`\`\`
@@ -188,7 +188,7 @@ thread::spawn(move || {
 \`\`\`
 
 > 💎 **Pro Tip: Deadlocks**
-> 
+>
 > Unlike RefCell which panics immediately, a Mutex will **wait forever** if you try to lock it twice in the same thread (or create a cycle). Always keep your critical sections (time holding the lock) as short as possible.
 
 ---

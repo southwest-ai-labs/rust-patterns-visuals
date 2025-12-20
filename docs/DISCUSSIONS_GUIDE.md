@@ -129,7 +129,7 @@ Great question! Here's the key difference:
 2. **`match`** - When you need exhaustive handling
    [exhaustive example]
 
-Rule of thumb: If you find yourself writing `_ => ()`, 
+Rule of thumb: If you find yourself writing `_ => ()`,
 consider `if let` instead.
 
 Related reading: [Rust Book Chapter X]

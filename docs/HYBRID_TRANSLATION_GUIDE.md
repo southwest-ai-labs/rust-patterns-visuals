@@ -143,7 +143,7 @@ import { useLanguage } from '../hooks/useLanguage';
 
 const MyComponent = () => {
   const { t } = useLanguage();
-  
+
   return (
     <button>{t('run')}</button>  // Traducciones manuales
   );
@@ -184,11 +184,11 @@ import { useHybridTranslation } from '../hooks/useHybridTranslation';
 const AdvancedComponent = () => {
   const { translate, status, isAvailable } = useHybridTranslation();
   const [text, setText] = useState('');
-  
+
   useEffect(() => {
     translate("Complex text").then(setText);
   }, []);
-  
+
   return (
     <div>
       {status === 'downloading' && <Spinner />}
@@ -290,7 +290,7 @@ translate("Same text"); // <1ms segunda vez
 ### Priorización
 ```typescript
 // 1. Memoria (caché)       - <1ms
-// 2. Traducciones manuales - <1ms  
+// 2. Traducciones manuales - <1ms
 // 3. Chrome Translation    - 100-300ms
 // 4. Fallback original     - <1ms
 ```
@@ -395,7 +395,7 @@ export const TRANSLATIONS = {
 ## 🐛 Troubleshooting
 
 ### Problema: "Chrome API not available"
-**Solución**: 
+**Solución**:
 - Chrome 109+ requerido
 - Fallback automático a traducciones manuales
 - No afecta funcionalidad crítica
@@ -427,7 +427,7 @@ console.log({ status, isAvailable });
 - **Traducciones manuales**: ~30 keys (UI crítica)
 - **Chrome API**: Ilimitado (contenido dinámico)
 - **Idiomas**: 2 activos (EN, ES)
-- **Soporte navegadores**: 
+- **Soporte navegadores**:
   - Chrome/Edge: Sistema híbrido completo ✅
   - Firefox/Safari: Solo traducciones manuales ✅
 
@@ -465,13 +465,13 @@ console.log({ status, isAvailable });
 
 - Chrome Translation API: https://developer.chrome.com/docs/ai/translation-api
 - React Context API: https://react.dev/reference/react/useContext
-- Código fuente: 
+- Código fuente:
   - `src/hooks/useHybridTranslation.tsx`
   - `src/hooks/useLanguage.tsx`
   - `src/hooks/useChromeTranslation.tsx`
 
 ---
 
-**Estado**: ✅ Sistema Híbrido Implementado y Funcional  
-**Última Actualización**: Diciembre 20, 2025  
+**Estado**: ✅ Sistema Híbrido Implementado y Funcional
+**Última Actualización**: Diciembre 20, 2025
 **Mantenido por**: Southwest AI Labs

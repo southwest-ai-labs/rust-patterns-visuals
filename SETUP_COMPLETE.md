@@ -196,6 +196,6 @@ Todos los sistemas están operativos:
 
 ---
 
-**Configurado por**: Southwest AI Labs  
-**Fecha**: Diciembre 20, 2025  
+**Configurado por**: Southwest AI Labs
+**Fecha**: Diciembre 20, 2025
 **Status**: 🟢 Production Ready

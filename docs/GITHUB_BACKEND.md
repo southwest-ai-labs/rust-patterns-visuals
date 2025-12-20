@@ -11,13 +11,13 @@ Rust.Hub uses GitHub as a decentralized backend for storing user progress, enabl
 - **Workflow**: `.github/workflows/deploy_pages.yml`
 
 ### 2. GitHub Discussions 💬
-- **Enabled**: ✅ 
+- **Enabled**: ✅
 - **Use Cases**:
   - Lesson-specific Q&A
   - Community help
   - Feature discussions
   - Show & Tell (sharing solutions)
-  
+
 Access: `https://github.com/southwest-ai-labs/rust-patterns-visuals/discussions`
 
 ### 3. GitHub Sponsors 💖
@@ -212,6 +212,6 @@ GitHub provides built-in analytics:
 
 ---
 
-**Configured by**: Southwest AI Labs  
-**Last Updated**: December 2025  
+**Configured by**: Southwest AI Labs
+**Last Updated**: December 2025
 **Status**: ✅ Production Ready

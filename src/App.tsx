@@ -37,7 +37,7 @@ const AppContent: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [playgroundCode, setPlaygroundCode] = useState<string | null>(null);
   const [currentView, setCurrentView] = useState<'hub' | 'dashboard'>('hub');
-  
+
   const [showDaily, setShowDaily] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showGithub, setShowGithub] = useState(false);
@@ -75,7 +75,7 @@ const AppContent: React.FC = () => {
   useEffect(() => {
       const activeTrack = CURRICULUM.tracks.find(t => t.lessons.some(l => l.id === activeLessonId));
       if (activeTrack) setExpandedTracks(prev => new Set(prev).add(activeTrack.id));
-      
+
       const url = new URL(window.location.href);
       url.searchParams.set('lesson', activeLessonId);
       window.history.pushState({}, '', url);
@@ -126,9 +126,9 @@ const AppContent: React.FC = () => {
   return (
     <>
     <ThreeBackground isDark={true} />
-    
+
     {activeMetadata && (
-        <MetaUpdater 
+        <MetaUpdater
             title={activeMetadata.title}
             description={activeMetadata.description || "Master Idiomatic Rust architecture."}
         />
@@ -137,7 +137,7 @@ const AppContent: React.FC = () => {
     {showWelcome && <WelcomeSovereignty onClose={() => setShowWelcome(false)} />}
 
     <div className="flex h-screen overflow-hidden text-slate-200 font-sans selection:bg-orange-500/30">
-      
+
       {/* Mobile Header */}
       <div className="lg:hidden fixed top-0 w-full glass-panel z-50 flex justify-between items-center p-4 border-b border-slate-700/50">
           <div className="font-bold text-orange-500 tracking-wider">RUST.HUB</div>
@@ -153,14 +153,14 @@ const AppContent: React.FC = () => {
                 RUST<span className="text-slate-500 font-light">.HUB</span>
               </h1>
               {/* Selector de Idioma */}
-              <button 
+              <button
                 onClick={() => setLanguage(language === 'en' ? 'es' : 'en')}
                 className="text-[9px] font-black border border-slate-700 px-2 py-1 rounded hover:bg-slate-800 transition-colors uppercase"
               >
                   {language}
               </button>
           </div>
-          
+
           {/* Rank Monitor */}
           <div className="mt-6 bg-slate-900/60 p-4 rounded-xl border border-slate-700/50 shadow-inner group relative overflow-hidden">
               <div className="flex justify-between items-baseline mb-1">
@@ -229,7 +229,7 @@ const AppContent: React.FC = () => {
       <main ref={mainRef} className="flex-1 overflow-y-auto pt-16 lg:pt-0 relative z-10 scroll-smooth">
         <div className="max-w-6xl mx-auto p-4 lg:p-10">
           <div className="glass-panel rounded-2xl min-h-[90vh] p-6 lg:p-12 shadow-2xl flex flex-col relative overflow-hidden border border-slate-700/40">
-              
+
               {/* Tab Nav */}
               <div className="flex gap-10 border-b border-slate-700/30 mb-10 shrink-0">
                   <button onClick={() => setCurrentView('hub')} className={`pb-4 text-[10px] font-black uppercase tracking-[0.3em] transition-all ${currentView === 'hub' ? 'text-orange-500 border-b-2 border-orange-500' : 'text-slate-500 hover:text-slate-300'}`}>{t('neural_uplink')}</button>
@@ -261,8 +261,8 @@ const AppContent: React.FC = () => {
                       </header>
 
                       <div className="flex-1">
-                          <MarkdownRenderer 
-                            content={content.markdown} 
+                          <MarkdownRenderer
+                            content={content.markdown}
                             onRunCode={(code) => setPlaygroundCode(code)}
                             userProgress={progress}
                           />
@@ -270,9 +270,9 @@ const AppContent: React.FC = () => {
                               <LessonNotes lessonId={activeLessonId} />
                               <LessonDiscussion lessonId={activeLessonId} />
                           </div>
-                          <Quiz 
-                            quiz={content.quiz} 
-                            onComplete={() => handleCompletion(100)} 
+                          <Quiz
+                            quiz={content.quiz}
+                            onComplete={() => handleCompletion(100)}
                           />
                       </div>
                     </div>
@@ -290,8 +290,8 @@ const AppContent: React.FC = () => {
 
     {/* Floating AI Agent */}
     {content && activeMetadata && (
-        <AiTutor 
-            currentContext={content.markdown} 
+        <AiTutor
+            currentContext={content.markdown}
             lessonTitle={activeMetadata.title}
             model={config.model}
             onOpenSettings={() => setShowSettings(true)}
@@ -304,20 +304,20 @@ const AppContent: React.FC = () => {
     )}
 
     <CommandPalette isOpen={showCommandPalette} onClose={() => setShowCommandPalette(false)} onSelect={(id) => { setActiveLessonId(id); setCurrentView('hub'); }} />
-    
-    <DailyChallenge 
-        isOpen={showDaily} 
-        onClose={() => setShowDaily(false)} 
+
+    <DailyChallenge
+        isOpen={showDaily}
+        onClose={() => setShowDaily(false)}
         onOpenPlayground={(code) => { setShowDaily(false); setPlaygroundCode(code); }}
         model={config.model}
         onMissingKey={() => setShowSettings(true)}
         onSolve={() => setProgress(prev => ({ ...prev, totalMMR: prev.totalMMR + 50 }))}
     />
 
-    <SettingsModal 
-        isOpen={showSettings} 
-        onClose={() => setShowSettings(false)} 
-        config={config} 
+    <SettingsModal
+        isOpen={showSettings}
+        onClose={() => setShowSettings(false)}
+        config={config}
         onSave={setConfig}
         isProEnabled={progress.isProEnabled}
         onActivatePro={async () => {
@@ -327,9 +327,9 @@ const AppContent: React.FC = () => {
         }}
     />
 
-    <GithubModal 
-        isOpen={showGithub} 
-        onClose={() => setShowGithub(false)} 
+    <GithubModal
+        isOpen={showGithub}
+        onClose={() => setShowGithub(false)}
         progress={progress}
         onSyncComplete={setProgress}
     />
@@ -337,9 +337,9 @@ const AppContent: React.FC = () => {
     {showStaffGate && (
         <div className="fixed inset-0 z-[200] bg-black flex flex-col animate-fade-in">
             <button onClick={() => setShowStaffGate(false)} className="absolute top-6 right-8 text-slate-500 hover:text-white z-50 font-black text-[10px] uppercase tracking-widest">{t('exit_gate')}</button>
-            <StaffFinalGate 
-                progress={progress} 
-                onCertificationEarned={(id) => setProgress(p => ({ ...p, history: [...p.history, { itemId: id, type: 'exam', timestamp: Date.now(), xpEarned: 500 }], totalMMR: p.totalMMR + 500 }))} 
+            <StaffFinalGate
+                progress={progress}
+                onCertificationEarned={(id) => setProgress(p => ({ ...p, history: [...p.history, { itemId: id, type: 'exam', timestamp: Date.now(), xpEarned: 500 }], totalMMR: p.totalMMR + 500 }))}
             />
         </div>
     )}

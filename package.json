@@ -8,18 +8,29 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "npm run build && gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:debug": "playwright test --debug",
+    "test:e2e:chromium": "playwright test --project=chromium",
+    "test:e2e:firefox": "playwright test --project=firefox",
+    "test:e2e:webkit": "playwright test --project=webkit",
+    "test:e2e:mobile": "playwright test --project='Mobile Chrome' --project='Mobile Safari'",
+    "test:e2e:report": "playwright show-report"
   },
   "dependencies": {
-    "react-markdown": "9.0.1",
+    "@google/genai": "^1.33.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "@google/genai": "^1.33.0",
+    "react-markdown": "9.0.1",
     "three": "^0.182.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.57.0",
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
+    "playwright": "^1.57.0",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"
   }

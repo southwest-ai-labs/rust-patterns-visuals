@@ -63,7 +63,7 @@ Hands-on tools for experimenting with:
 ## 🚀 Getting Started
 
 ### Prerequisites
-- **Node.js** 18+ 
+- **Node.js** 18+
 - **npm** or **yarn**
 - A modern browser (Chrome, Firefox, Safari, Edge)
 

@@ -19,7 +19,7 @@ export const useHybridTranslation = () => {
    */
   const translate = async (text: string, forceChrome = false): Promise<string> => {
     if (!text || !text.trim()) return text;
-    
+
     // Si es inglés, retornar directo
     if (language === 'en') return text;
 
@@ -29,7 +29,7 @@ export const useHybridTranslation = () => {
       const manualKey = Object.keys(TRANSLATIONS.en).find(
         key => TRANSLATIONS.en[key as keyof typeof TRANSLATIONS.en] === text
       );
-      
+
       if (manualKey) {
         return TRANSLATIONS[language][manualKey as keyof typeof TRANSLATIONS.en] || text;
       }
@@ -62,8 +62,8 @@ export const useHybridTranslation = () => {
  * Componente Híbrido de Traducción
  * Usa traducciones manuales si existen, Chrome API si no
  */
-export const HT: React.FC<{ 
-  children: string; 
+export const HT: React.FC<{
+  children: string;
   className?: string;
   forceChrome?: boolean; // Forzar uso de Chrome API aunque exista traducción manual
 }> = ({ children, className, forceChrome = false }) => {
@@ -73,7 +73,7 @@ export const HT: React.FC<{
 
   useEffect(() => {
     let isMounted = true;
-    
+
     if (language === 'en') {
       setText(children);
       return;

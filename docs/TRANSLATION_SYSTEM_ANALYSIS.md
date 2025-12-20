@@ -5,7 +5,7 @@
 El proyecto **Rust.Hub** tiene **DOS sistemas de traducción implementados** que **NO están integrados entre sí**:
 
 ### 1. ✅ Sistema de Locales Manual (ACTIVO)
-**Archivos**: 
+**Archivos**:
 - `src/services/i18nService.ts`
 - `src/hooks/useLanguage.tsx`
 
@@ -160,7 +160,7 @@ Algunos componentes usan `t()`, otros usan `<T>`, otros texto directo.
 ## 💡 Recomendaciones
 
 ### Opción A: **Continuar solo con Locales Manuales** (Recomendado)
-**Pros**: Estable, funciona en todos lados, control total  
+**Pros**: Estable, funciona en todos lados, control total
 **Contras**: Más trabajo manual
 
 **Pasos**:
@@ -170,7 +170,7 @@ Algunos componentes usan `t()`, otros usan `<T>`, otros texto directo.
 4. 📖 Documentar claves de traducción
 
 ### Opción B: **Activar Chrome Translation API**
-**Pros**: Traducción automática de todo  
+**Pros**: Traducción automática de todo
 **Contras**: Solo Chrome, experimental
 
 **Pasos**:
@@ -244,7 +244,7 @@ import { useLanguage } from './hooks/useLanguage';
 
 const MyComponent = () => {
   const { t, language, setLanguage } = useLanguage();
-  
+
   return (
     <div>
       <button onClick={() => setLanguage('es')}>Español</button>
@@ -304,7 +304,7 @@ const MyComponent = () => {
 - **Total keys**: 30
 - **Idiomas**: 2 (EN, ES)
 - **Cobertura**: ~5% del contenido total
-- **Tipos cubiertos**: 
+- **Tipos cubiertos**:
   - ✅ UI/HUD elements
   - ✅ Botones principales
   - ✅ Tabs del dashboard

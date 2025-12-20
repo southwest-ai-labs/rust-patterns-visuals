@@ -12,14 +12,27 @@ const LanguageContext = createContext<LanguageContextType | null>(null);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
-    const saved = localStorage.getItem('rust_hub_lang');
+    const saved = localStorage.getItem('preferredLanguage');
     if (saved === 'en' || saved === 'es') return saved;
-    return navigator.language.startsWith('es') ? 'es' : 'en';
+    
+    // Detectar idioma del navegador
+    const browserLang = navigator.language.toLowerCase();
+    console.log('🌍 Browser language detected:', browserLang);
+    
+    // Detectar español (es, es-ES, es-MX, es-AR, etc.)
+    if (browserLang.startsWith('es')) {
+      console.log('✅ Spanish detected, setting language to ES');
+      return 'es';
+    }
+    
+    console.log('✅ Default language set to EN');
+    return 'en';
   });
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    localStorage.setItem('rust_hub_lang', lang);
+    localStorage.setItem('preferredLanguage', lang);
+    console.log('🔄 Language changed to:', lang);
   };
 
   const t = (key: keyof typeof TRANSLATIONS.en): string => {

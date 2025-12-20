@@ -30,7 +30,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, c
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/90 backdrop-blur-sm" onClick={onClose} />
-      
+
       <div className="relative w-full max-w-md bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden animate-fade-in">
         <div className="px-6 py-4 border-b border-slate-800 bg-slate-950 flex justify-between items-center">
             <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">System_Configuration</h2>
@@ -46,14 +46,14 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, c
                         <p className="text-[9px] text-slate-500 font-mono mt-1">Uplink to Google Cloud Neural Engines (L5 Reasoning).</p>
                     </div>
                 </div>
-                
+
                 {isProEnabled ? (
                     <div className="flex items-center justify-between py-2 px-4 bg-emerald-950/20 border border-emerald-500/30 rounded-lg">
                         <span className="text-emerald-400 text-[10px] font-black uppercase tracking-widest animate-pulse"># Status: Uplink_Verified</span>
                         <span className="text-emerald-500 text-xs">●</span>
                     </div>
                 ) : (
-                    <button 
+                    <button
                         onClick={onActivatePro}
                         className="w-full py-3 bg-orange-600 hover:bg-orange-500 text-white font-black text-[10px] uppercase tracking-widest rounded-lg transition-all shadow-[0_0_20px_rgba(234,88,12,0.3)]"
                     >
@@ -71,7 +71,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, c
                     <div className="space-y-3">
                         <div className="flex items-center justify-between">
                             <span className="text-xs font-bold text-white">Interface Language</span>
-                            <select 
+                            <select
                                 value={language}
                                 onChange={(e) => setLanguage(e.target.value as 'en' | 'es')}
                                 className="bg-black/50 border border-purple-500/30 text-white text-xs px-3 py-2 rounded-lg font-mono"
@@ -80,7 +80,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, c
                                 <option value="es">🇪🇸 Español</option>
                             </select>
                         </div>
-                        
+
                         <div className="pt-3 border-t border-slate-800">
                             <div className="flex items-center gap-2 mb-2">
                                 <span className="text-[10px] text-slate-400 font-mono">Translation Mode:</span>
@@ -90,35 +90,35 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, c
                                     {chromeTranslationAvailable ? 'Hybrid (Manual + AI)' : 'Manual Only'}
                                 </span>
                             </div>
-                            
+
                             {chromeTranslationAvailable && (
                                 <div className="space-y-2">
                                     <div className="flex items-center justify-between text-[9px]">
                                         <span className="text-slate-500">Chrome Translation API:</span>
                                         <span className={`font-bold uppercase ${
-                                            translationStatus === 'ready' ? 'text-emerald-400' : 
+                                            translationStatus === 'ready' ? 'text-emerald-400' :
                                             translationStatus === 'downloading' ? 'text-yellow-400' :
                                             translationStatus === 'error' ? 'text-red-400' : 'text-slate-500'
                                         }`}>
                                             {translationStatus}
                                         </span>
                                     </div>
-                                    
+
                                     {translationStatus === 'downloading' && (
                                         <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-                                            <div 
+                                            <div
                                                 className="bg-purple-500 h-full transition-all duration-300"
                                                 style={{ width: `${downloadProgress}%` }}
                                             />
                                         </div>
                                     )}
-                                    
+
                                     <p className="text-[8px] text-slate-600 italic leading-tight">
                                         Hybrid mode: UI uses manual translations, dynamic content uses AI translation.
                                     </p>
                                 </div>
                             )}
-                            
+
                             {!chromeTranslationAvailable && (
                                 <p className="text-[8px] text-slate-600 italic leading-tight">
                                     Chrome Translation API not available. Using manual translations only. (Chrome 109+ required for AI translations)
@@ -136,7 +136,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, c
                         { id: 'gemini-3-flash-preview', name: 'Flash 3.0', desc: 'Optimal for real-time tutoring.' },
                         { id: 'gemini-3-pro-preview', name: 'Pro 3.0', desc: 'Required for Architectural Audit.' }
                     ].map(m => (
-                        <button 
+                        <button
                             key={m.id}
                             onClick={() => setModel(m.id)}
                             className={`text-left px-5 py-3 rounded-xl border-2 transition-all ${model === m.id ? 'border-blue-500 bg-blue-900/10' : 'border-slate-800 bg-black/40 opacity-60 hover:opacity-100'}`}
@@ -153,7 +153,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, c
         </div>
 
         <div className="p-6 bg-slate-950 border-t border-slate-800 flex justify-end">
-            <button 
+            <button
                 onClick={() => { onSave({ model }); onClose(); }}
                 className="px-10 py-3 bg-white text-black font-black text-[10px] uppercase tracking-widest rounded-full hover:bg-orange-500 hover:text-white transition-all shadow-xl"
             >

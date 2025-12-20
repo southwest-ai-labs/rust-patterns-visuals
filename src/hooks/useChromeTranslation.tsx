@@ -49,7 +49,7 @@ export const TranslationProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
   const initTranslator = async (targetLang: string) => {
     if (!('translation' in window)) return;
-    
+
     // If target is English, we just reset (source is assumed English)
     if (targetLang === 'en') {
         setTargetLanguageState('en');
@@ -61,7 +61,7 @@ export const TranslationProvider: React.FC<{ children: React.ReactNode }> = ({ c
     try {
         setTargetLanguageState(targetLang);
         setStatus('downloading');
-        
+
         // Check if we can translate
         const canTranslate = await window.translation!.canTranslate({
             sourceLanguage: 'en',
@@ -102,7 +102,7 @@ export const TranslationProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const translate = useCallback(async (text: string): Promise<string> => {
     if (!text || !text.trim()) return text;
     if (targetLanguage === 'en' || !translator) return text;
-    
+
     try {
         return await translator.translate(text);
     } catch (e) {
@@ -112,11 +112,11 @@ export const TranslationProvider: React.FC<{ children: React.ReactNode }> = ({ c
   }, [translator, targetLanguage]);
 
   return (
-    <TranslationContext.Provider value={{ 
-        isAvailable, 
-        status, 
-        targetLanguage, 
-        setTargetLanguage: initTranslator, 
+    <TranslationContext.Provider value={{
+        isAvailable,
+        status,
+        targetLanguage,
+        setTargetLanguage: initTranslator,
         translate,
         downloadProgress
     }}>
@@ -135,10 +135,10 @@ export const useChromeTranslation = () => {
 export const T: React.FC<{ children: string; className?: string }> = ({ children, className }) => {
     const { translate, targetLanguage, status } = useChromeTranslation();
     const [text, setText] = useState(children);
-    
+
     useEffect(() => {
         let isMounted = true;
-        
+
         if (targetLanguage === 'en' || status !== 'ready') {
             setText(children);
             return;
