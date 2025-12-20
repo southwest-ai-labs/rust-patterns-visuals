@@ -1,5 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
+import { useLanguage } from '../hooks/useLanguage';
+import { useChromeTranslation } from '../hooks/useChromeTranslation';
 
 interface UserConfig {
   model: string;
@@ -16,6 +18,8 @@ interface SettingsModalProps {
 
 export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, config, onSave, isProEnabled, onActivatePro }) => {
   const [model, setModel] = useState(config.model);
+  const { language, setLanguage } = useLanguage();
+  const { isAvailable: chromeTranslationAvailable, status: translationStatus, downloadProgress } = useChromeTranslation();
 
   useEffect(() => {
     if (isOpen) setModel(config.model);
@@ -59,6 +63,70 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, c
                 <p className="text-[8px] text-slate-600 mt-3 italic text-center font-mono leading-tight">
                     *Requires a billing-enabled GCP project. No keys are stored on our servers.
                 </p>
+            </div>
+
+            <div className="space-y-4">
+                <label className="block text-[10px] font-black text-purple-500 uppercase tracking-widest">Language_System</label>
+                <div className="p-5 bg-gradient-to-br from-purple-950/30 to-blue-950/30 border border-purple-500/20 rounded-xl">
+                    <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                            <span className="text-xs font-bold text-white">Interface Language</span>
+                            <select 
+                                value={language}
+                                onChange={(e) => setLanguage(e.target.value as 'en' | 'es')}
+                                className="bg-black/50 border border-purple-500/30 text-white text-xs px-3 py-2 rounded-lg font-mono"
+                            >
+                                <option value="en">🇺🇸 English</option>
+                                <option value="es">🇪🇸 Español</option>
+                            </select>
+                        </div>
+                        
+                        <div className="pt-3 border-t border-slate-800">
+                            <div className="flex items-center gap-2 mb-2">
+                                <span className="text-[10px] text-slate-400 font-mono">Translation Mode:</span>
+                                <span className={`text-[9px] px-2 py-0.5 rounded-full font-bold uppercase ${
+                                    chromeTranslationAvailable ? 'bg-purple-500/20 text-purple-400' : 'bg-slate-700 text-slate-500'
+                                }`}>
+                                    {chromeTranslationAvailable ? 'Hybrid (Manual + AI)' : 'Manual Only'}
+                                </span>
+                            </div>
+                            
+                            {chromeTranslationAvailable && (
+                                <div className="space-y-2">
+                                    <div className="flex items-center justify-between text-[9px]">
+                                        <span className="text-slate-500">Chrome Translation API:</span>
+                                        <span className={`font-bold uppercase ${
+                                            translationStatus === 'ready' ? 'text-emerald-400' : 
+                                            translationStatus === 'downloading' ? 'text-yellow-400' :
+                                            translationStatus === 'error' ? 'text-red-400' : 'text-slate-500'
+                                        }`}>
+                                            {translationStatus}
+                                        </span>
+                                    </div>
+                                    
+                                    {translationStatus === 'downloading' && (
+                                        <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                                            <div 
+                                                className="bg-purple-500 h-full transition-all duration-300"
+                                                style={{ width: `${downloadProgress}%` }}
+                                            />
+                                        </div>
+                                    )}
+                                    
+                                    <p className="text-[8px] text-slate-600 italic leading-tight">
+                                        Hybrid mode: UI uses manual translations, dynamic content uses AI translation.
+                                    </p>
+                                </div>
+                            )}
+                            
+                            {!chromeTranslationAvailable && (
+                                <p className="text-[8px] text-slate-600 italic leading-tight">
+                                    Chrome Translation API not available. Using manual translations only. (Chrome 109+ required for AI translations)
+                                </p>
+                            )}
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div className="space-y-4">

@@ -20,6 +20,7 @@ import { AiTutor } from './components/AiTutor';
 import { MetaUpdater } from './components/MetaUpdater';
 import { ShareButton } from './components/ShareButton';
 import { LanguageProvider, useLanguage } from './hooks/useLanguage';
+import { TranslationProvider } from './hooks/useChromeTranslation';
 
 const STORAGE_KEY = 'rust_patterns_progress_v2';
 
@@ -348,7 +349,9 @@ const AppContent: React.FC = () => {
 
 const App: React.FC = () => (
   <LanguageProvider>
-    <AppContent />
+    <TranslationProvider>
+      <AppContent />
+    </TranslationProvider>
   </LanguageProvider>
 );
 

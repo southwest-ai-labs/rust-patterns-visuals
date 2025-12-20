@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useCallback, createContext, useContext } from 'react';
+import { useLanguage } from './useLanguage';
 
 interface TranslationContextType {
   isAvailable: boolean;
@@ -13,6 +14,7 @@ interface TranslationContextType {
 const TranslationContext = createContext<TranslationContextType | null>(null);
 
 export const TranslationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { language: manualLanguage } = useLanguage(); // Sync with manual locales
   const [translator, setTranslator] = useState<any>(null);
   const [status, setStatus] = useState<'idle' | 'downloading' | 'ready' | 'error'>('idle');
   const [downloadProgress, setDownloadProgress] = useState(0);
@@ -28,17 +30,22 @@ export const TranslationProvider: React.FC<{ children: React.ReactNode }> = ({ c
       }
 
       setIsAvailable(true);
-
-      // Detect system language (e.g., 'es-ES' -> 'es')
-      const sysLang = navigator.language.split('-')[0];
-      if (sysLang !== 'en') {
-        console.log(`System language detected: ${sysLang}. Initializing translator...`);
-        await initTranslator(sysLang);
-      }
     };
 
     checkAvailability();
   }, []);
+
+  // 2. Sync with manual language selection
+  useEffect(() => {
+    if (manualLanguage && manualLanguage !== 'en') {
+      initTranslator(manualLanguage);
+    } else {
+      // Reset to English
+      setTargetLanguageState('en');
+      setTranslator(null);
+      setStatus('idle');
+    }
+  }, [manualLanguage]);
 
   const initTranslator = async (targetLang: string) => {
     if (!('translation' in window)) return;
