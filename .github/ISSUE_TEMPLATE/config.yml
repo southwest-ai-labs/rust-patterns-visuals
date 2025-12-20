@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 💬 GitHub Discussions
+    url: https://github.com/southwest-ai-labs/rust-patterns-visuals/discussions
+    about: Ask questions and discuss with the community
+  - name: 📖 Documentation
+    url: https://github.com/southwest-ai-labs/rust-patterns-visuals#readme
+    about: Check out our comprehensive documentation

@@ -29,8 +29,8 @@ export interface Comment {
 
 const REPO_NAME = 'rust-patterns-storage';
 const FILE_PATH = 'progress_v2.json';
-// Fix: Added community repo constant for discussion lookups
-const COMMUNITY_REPO = 'southwest-ai-labs/rust-hub-community';
+const COMMUNITY_REPO = 'southwest-ai-labs/rust-patterns-visuals';
+const DISCUSSIONS_REPO = 'southwest-ai-labs/rust-patterns-visuals';
 
 const getHeaders = (token: string) => ({
   'Authorization': `token ${token}`,
