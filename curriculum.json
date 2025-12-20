@@ -1,0 +1,49 @@
+{
+  "tracks": [
+    {
+      "id": "track_01_flow",
+      "title": "Control Flow Mastery",
+      "description": "Moving beyond C-style logic into idiomatic Rust control flow.",
+      "lessons": [
+        {
+          "id": "lesson_01_match",
+          "title": "Match & If Let",
+          "description": "Exhaustive pattern matching and concise flow control.",
+          "filename": "lesson01_control_flow.md",
+          "difficulty": "Intermediate",
+          "readTime": "5 min"
+        }
+      ]
+    },
+    {
+      "id": "track_02_iter",
+      "title": "Functional Iteration",
+      "description": "Embracing the power of Iterators and Closures.",
+      "lessons": [
+        {
+          "id": "lesson_02_iterators",
+          "title": "Iterators vs Loops",
+          "description": "Zero-cost abstractions for processing collections.",
+          "filename": "lesson02_iterators.md",
+          "difficulty": "Rustacean",
+          "readTime": "8 min"
+        }
+      ]
+    },
+    {
+      "id": "track_03_std",
+      "title": "Standard Library Essentials",
+      "description": "Core types that every Rust developer uses daily.",
+      "lessons": [
+        {
+          "id": "lesson_03_options",
+          "title": "Option & Result",
+          "description": "Error handling without Exceptions or Nulls.",
+          "filename": "lesson03_std_types.md",
+          "difficulty": "Beginner",
+          "readTime": "6 min"
+        }
+      ]
+    }
+  ]
+}

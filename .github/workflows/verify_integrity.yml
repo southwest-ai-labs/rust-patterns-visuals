@@ -1,0 +1,59 @@
+
+name: Neural Integrity Check
+
+on:
+  push:
+    paths:
+      - 'progress_v2.json'
+
+jobs:
+  verify_mmr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Neural Fork
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Validate Signature
+        id: validate
+        run: |
+          # Extract JSON content
+          CONTENT=$(cat progress_v2.json)
+          
+          # This script simulates the backend validation logic.
+          # In a real scenario, this would use a shared secret or public key verification.
+          # For Open Core, we validate that the structure is consistent.
+          
+          echo "Analyzing MMR consistency..."
+          node -e "
+            const data = require('./progress_v2.json');
+            const calculatedMMR = data.history.reduce((acc, curr) => acc + curr.xpEarned, 0);
+            
+            console.log('Reported MMR:', data.totalMMR);
+            console.log('Calculated MMR:', calculatedMMR);
+            
+            if (Math.abs(data.totalMMR - calculatedMMR) > 5) {
+              console.error('TAMPERING DETECTED: MMR does not match history.');
+              process.exit(1);
+            } else {
+              console.log('INTEGRITY_CHECK: PASSED');
+            }
+          "
+
+      - name: Auto-Label Verified
+        if: success()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            // If this was a PR, we would label it. 
+            // Since it's a push to user repo, we can post a commit comment.
+            github.rest.repos.createCommitComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: context.sha,
+              body: '✅ **Neural Integrity Verified**: MMR Consistent with History Log.'
+            })
