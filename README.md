@@ -263,16 +263,7 @@ By completing Rust.Hub's curriculum, you'll understand:
 
 ---
 
-## 📞 Support & Contact
-
-- 📧 **Email**: support@rusthub.dev
-- 💬 **Discord Community**: [Join our server](https://discord.gg/rusthub)
-- 🐦 **Twitter**: [@RustHubLabs](https://twitter.com/rusthublabs)
-- 📝 **Blog**: [rusthub.dev/blog](https://rusthub.dev/blog)
-
----
-
-## 📄 License
+##  License
 
 Rust.Hub is licensed under the **Southwest AI Labs Open Core License v1.0**.
 See [LICENSE.md](LICENSE.md) for full details.
