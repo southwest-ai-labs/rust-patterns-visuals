@@ -33,7 +33,7 @@ By default, Rust stores values on the Stack. But sometimes you need data to live
 Ownership rules say "One Owner". But what if a graph node is pointed to by multiple other nodes?
 \`Rc<T>\` enables **Multiple Ownership** via reference counting.
 
-Let's watch the reference count (`strong_count`) change in real-time.
+Let's watch the reference count (strong_count) change in real-time.
 
 \`\`\`visualizer
 {
