@@ -63,11 +63,32 @@ const AppContent: React.FC = () => {
   }, [progress]);
 
   const getRank = (mmr: number) => {
-      if (mmr < 100) return { title: 'Initiate', color: 'text-slate-400' };
-      if (mmr < 500) return { title: 'Ferris Fan', color: 'text-blue-400' };
-      if (mmr < 1500) return { title: 'Apprentice', color: 'text-amber-400' };
-      if (mmr < 3000) return { title: 'Journeyman', color: 'text-orange-400' };
-      return { title: 'Grand Rustacean', color: 'text-red-500 font-bold' };
+      if (mmr < 100) return { title: t('rank_initiate'), color: 'text-slate-400' };
+      if (mmr < 500) return { title: t('rank_ferris_fan'), color: 'text-blue-400' };
+      if (mmr < 1500) return { title: t('rank_apprentice'), color: 'text-amber-400' };
+      if (mmr < 3000) return { title: t('rank_journeyman'), color: 'text-orange-400' };
+      return { title: t('rank_grand_rustacean'), color: 'text-red-500 font-bold' };
+  };
+
+  // Helper functions for translating curriculum
+  const getTrackTitle = (trackId: string) => {
+    const trackKey = `track_${trackId.split('_')[1]}_title`;
+    return t(trackKey as any) || CURRICULUM.tracks.find(t => t.id === trackId)?.title || trackId;
+  };
+
+  const getTrackDescription = (trackId: string) => {
+    const trackKey = `track_${trackId.split('_')[1]}_desc`;
+    return t(trackKey as any) || CURRICULUM.tracks.find(t => t.id === trackId)?.description || '';
+  };
+
+  const getLessonTitle = (lessonId: string) => {
+    const lessonKey = `lesson_${lessonId.split('_')[1]}`;
+    return t(lessonKey as any) || CURRICULUM.tracks.flatMap(t => t.lessons).find(l => l.id === lessonId)?.title || lessonId;
+  };
+
+  const getDifficultyLabel = (difficulty: string) => {
+    const diffKey = `difficulty_${difficulty.toLowerCase()}`;
+    return t(diffKey as any) || difficulty;
   };
 
   const currentRank = getRank(progress.totalMMR);
@@ -129,7 +150,7 @@ const AppContent: React.FC = () => {
 
     {activeMetadata && (
         <MetaUpdater
-            title={activeMetadata.title}
+            title={getLessonTitle(activeMetadata.id)}
             description={activeMetadata.description || "Master Idiomatic Rust architecture."}
         />
     )}
@@ -193,7 +214,7 @@ const AppContent: React.FC = () => {
               <button onClick={() => setExpandedTracks(p => { const n = new Set(p); isExpanded ? n.delete(track.id) : n.add(track.id); return n; })} className="w-full flex items-center justify-between group mb-1 px-2 py-1.5 rounded hover:bg-slate-800/40 transition-all">
                   <div className="flex items-center gap-2">
                     <div className={`h-[1px] w-3 ${isExpanded ? 'bg-orange-500' : 'bg-slate-700'}`}></div>
-                    <h3 className={`text-[9px] font-black uppercase tracking-widest ${isExpanded ? 'text-orange-400' : 'text-slate-500'}`}>{track.title}</h3>
+                    <h3 className={`text-[9px] font-black uppercase tracking-widest ${isExpanded ? 'text-orange-400' : 'text-slate-500'}`}>{getTrackTitle(track.id)}</h3>
                   </div>
                   <svg className={`w-2.5 h-2.5 text-slate-600 transition-transform ${isExpanded ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 9l-7 7-7-7" strokeWidth={3} /></svg>
               </button>
@@ -205,7 +226,7 @@ const AppContent: React.FC = () => {
                     return (
                         <li key={lesson.id}>
                         <button onClick={() => { setActiveLessonId(lesson.id); setCurrentView('hub'); }} className={`w-full text-left px-3 py-2 rounded text-[11px] font-medium transition-all flex items-center justify-between ${isActive ? 'bg-orange-600/10 text-orange-400' : isCompleted ? 'text-emerald-400/80 hover:text-emerald-400' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/30'}`}>
-                            <span className="truncate">{lesson.title}</span>
+                            <span className="truncate">{getLessonTitle(lesson.id)}</span>
                             {isCompleted && <span className="text-[10px]">✓</span>}
                         </button>
                         </li>
@@ -251,9 +272,9 @@ const AppContent: React.FC = () => {
                         <div>
                             <div className="flex items-center gap-3 mb-2">
                                 <span className="px-2 py-0.5 bg-slate-800 rounded text-[8px] font-black uppercase text-slate-500 border border-slate-700 tracking-widest">Sector_{activeMetadata.id.split('_')[1]}</span>
-                                <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest border ${activeMetadata.difficulty === 'Rustacean' ? 'border-red-500 text-red-500 bg-red-500/10' : 'border-slate-600 text-slate-400'}`}>{activeMetadata.difficulty}</span>
+                                <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest border ${activeMetadata.difficulty === 'Rustacean' ? 'border-red-500 text-red-500 bg-red-500/10' : 'border-slate-600 text-slate-400'}`}>{getDifficultyLabel(activeMetadata.difficulty)}</span>
                             </div>
-                            <h2 className="text-4xl font-black text-white uppercase tracking-tighter leading-none">{activeMetadata.title}</h2>
+                            <h2 className="text-4xl font-black text-white uppercase tracking-tighter leading-none">{getLessonTitle(activeMetadata.id)}</h2>
                         </div>
                         <div className="flex gap-2">
                             <ShareButton />
@@ -292,7 +313,7 @@ const AppContent: React.FC = () => {
     {content && activeMetadata && (
         <AiTutor
             currentContext={content.markdown}
-            lessonTitle={activeMetadata.title}
+            lessonTitle={getLessonTitle(activeMetadata.id)}
             model={config.model}
             onOpenSettings={() => setShowSettings(true)}
         />

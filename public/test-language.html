@@ -94,15 +94,15 @@
         function detectLanguage() {
             const saved = localStorage.getItem('preferredLanguage');
             if (saved === 'en' || saved === 'es') return saved;
-            
+
             const browserLang = navigator.language.toLowerCase();
             console.log('🌍 Browser language detected:', browserLang);
-            
+
             if (browserLang.startsWith('es')) {
                 console.log('✅ Spanish detected, setting language to ES');
                 return 'es';
             }
-            
+
             console.log('✅ Default language set to EN');
             return 'en';
         }
@@ -131,12 +131,12 @@
             const detected = detectLanguage();
             const isSpanish = detected === 'es';
             const browserIsSpanish = navigator.language.toLowerCase().startsWith('es');
-            
+
             html += '<div class="status ' + (isSpanish && browserIsSpanish ? 'success' : 'warning') + '">';
             html += '<h3>🎯 Test 3: Detección Automática</h3>';
             html += '<p><strong>Idioma Detectado:</strong> <span class="value">' + detected + '</span></p>';
             html += '<p><strong>¿Navegador en español?:</strong> <span class="value">' + (browserIsSpanish ? 'Sí ✅' : 'No ❌') + '</span></p>';
-            
+
             if (browserIsSpanish && isSpanish) {
                 html += '<p class="pass">✅ PASS: Español detectado correctamente</p>';
             } else if (browserIsSpanish && !isSpanish) {
