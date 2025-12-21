@@ -23,6 +23,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Debug Info
+        run: |
+          node -v
+          npm -v
+          ls -R
+
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
