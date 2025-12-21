@@ -17,7 +17,7 @@ The workflow is triggered automatically on every push to `main` branch:
 ```yaml
 on:
   push:
-    branches: 
+    branches:
       - main
   workflow_dispatch:
 ```
