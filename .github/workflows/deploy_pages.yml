@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: 
+    branches:
       - main
   workflow_dispatch:
 
@@ -30,10 +30,12 @@ jobs:
           cache: 'npm'
 
       - name: Install Dependencies
-        run: npm install
+        run: |
+          npm ci || npm install
 
       - name: Build
-        run: npm run build
+        run: |
+          npm run build
         env:
           CI: false
 
