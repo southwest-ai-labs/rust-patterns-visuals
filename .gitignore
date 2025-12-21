@@ -18,6 +18,10 @@ dist-ssr
 /playwright/.cache/
 test-results.json
 
+# Rust build artifacts
+rust-e2e-poc/target/
+Cargo.lock
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
