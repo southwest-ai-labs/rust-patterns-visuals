@@ -4,6 +4,21 @@ import { Curriculum } from '../types';
 export const CURRICULUM: Curriculum = {
   "tracks": [
     {
+      "id": "track_00_onboarding",
+      "title": "0. Onboarding",
+      "description": "Cómo usar RUST.HUB y empezar con buen ritmo.",
+      "lessons": [
+        {
+          "id": "lesson_00_onboarding",
+          "title": "Onboarding",
+          "description": "Navegación, progreso, atajos y flujo del curso.",
+          "filename": "lesson00_onboarding.md",
+          "difficulty": "Beginner",
+          "readTime": "4 min"
+        }
+      ]
+    },
+    {
       "id": "track_01_flow",
       "title": "1. Control Flow Mastery",
       "description": "Moving beyond C-style logic into idiomatic Rust control flow.",

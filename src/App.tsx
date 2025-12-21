@@ -5,7 +5,7 @@ import { fetchLessonContent } from './services/contentService';
 import { MarkdownRenderer } from './components/MarkdownRenderer';
 import { Quiz } from './components/Quiz';
 import { LessonContent, DifficultyLevel, UserProgress } from './types';
-import { ThreeBackground } from './components/ThreeBackground';
+import { SvgBackground } from './components/SvgBackground';
 import { PlaygroundModal } from './components/PlaygroundModal';
 import { StaffFinalGate } from './components/StaffFinalGate';
 import { Dashboard } from './components/Dashboard';
@@ -56,7 +56,9 @@ const AppContent: React.FC = () => {
     return { history: [], totalMMR: 0, lastActive: Date.now(), currentStreak: 0, isProEnabled: false };
   });
 
-  const [expandedTracks, setExpandedTracks] = useState<Set<string>>(new Set([CURRICULUM.tracks[0].id]));
+  const [expandedTracks, setExpandedTracks] = useState<Set<string>>(
+    () => new Set(CURRICULUM.tracks.map((t) => t.id))
+  );
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
@@ -117,7 +119,7 @@ const AppContent: React.FC = () => {
       const metadata = LESSON_LOOKUP.find(l => l.id === activeLessonId);
       if (metadata) {
         try {
-            const data = await fetchLessonContent(metadata.filename);
+            const data = await fetchLessonContent(metadata.filename, language);
             setContent(data);
         } catch (error) { console.error("Data Stream Error", error); }
       }
@@ -126,7 +128,7 @@ const AppContent: React.FC = () => {
       if (mainRef.current) mainRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     };
     if (activeLessonId && currentView === 'hub') loadLesson();
-  }, [activeLessonId, currentView]);
+  }, [activeLessonId, currentView, language]);
 
   const handleCompletion = (xp: number) => {
       const lessonMeta = LESSON_LOOKUP.find(l => l.id === activeLessonId);
@@ -146,7 +148,7 @@ const AppContent: React.FC = () => {
 
   return (
     <>
-    <ThreeBackground isDark={true} />
+    <SvgBackground isDark={true} />
 
     {activeMetadata && (
         <MetaUpdater
