@@ -1,0 +1,30 @@
+name: CI (PR)
+
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    branches: [ fix/ci-pr ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      NPM_CONFIG_OPTIONAL: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Show Node & npm
+        run: |
+          node --version
+          npm --version
+      - name: Install dependencies (omit optional)
+        run: npm ci --omit=optional
+      - name: Build
+        run: npm run build
+      - name: Run E2E tests (optional)
+        if: ${{ always() }}
+        run: npm run test:e2e || true
