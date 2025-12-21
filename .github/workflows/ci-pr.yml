@@ -25,6 +25,6 @@ jobs:
         run: npm ci --omit=optional
       - name: Build
         run: npm run build
-      - name: Run E2E tests (optional)
-        if: ${{ always() }}
-        run: npm run test:e2e || true
+      # E2E tests removed from PR workflow to speed up CI
+      # Tests run on merge to master via deploy_pages.yml
+      # See issue #6 for details
