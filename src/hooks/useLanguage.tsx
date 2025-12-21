@@ -14,17 +14,17 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [language, setLanguageState] = useState<Language>(() => {
     const saved = localStorage.getItem('preferredLanguage');
     if (saved === 'en' || saved === 'es') return saved;
-    
+
     // Detectar idioma del navegador
     const browserLang = navigator.language.toLowerCase();
     console.log('🌍 Browser language detected:', browserLang);
-    
+
     // Detectar español (es, es-ES, es-MX, es-AR, etc.)
     if (browserLang.startsWith('es')) {
       console.log('✅ Spanish detected, setting language to ES');
       return 'es';
     }
-    
+
     console.log('✅ Default language set to EN');
     return 'en';
   });

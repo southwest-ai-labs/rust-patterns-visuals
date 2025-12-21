@@ -25,32 +25,31 @@ jobs:
   build-and-test:
     name: Build & Test
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-      
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Build project
         run: npm run build
         env:
           CI: false
-      
+
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
-      
+
       - name: Run E2E tests
         run: npx playwright test --project=chromium
-        continue-on-error: true
-      
+
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
@@ -58,7 +57,7 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 7
-      
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -71,36 +70,36 @@ jobs:
     name: Deploy to GitHub Pages
     needs: build-and-test
     runs-on: ubuntu-latest
-    if: (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main') && needs.build-and-test.result == 'success'
-    
+    if: (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main') && github.event_name == 'push' && needs.build-and-test.result == 'success'
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-      
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Build project
         run: npm run build
-      
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-      
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
-      
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
@@ -108,15 +107,26 @@ jobs:
   # Job 3: Status Check
   status:
     name: CI Status
-    needs: build-and-test
+    needs: [build-and-test, deploy]
     runs-on: ubuntu-latest
     if: always()
-    
+
     steps:
       - name: Check build status
         run: |
-          if [ "${{ needs.build-and-test.result }}" != "success" ]; then
+          BUILD_STATUS="${{ needs.build-and-test.result }}"
+          DEPLOY_STATUS="${{ needs.deploy.result }}"
+          
+          echo "Build Status: $BUILD_STATUS"
+          echo "Deploy Status: $DEPLOY_STATUS"
+          
+          if [ "$BUILD_STATUS" != "success" ]; then
             echo "❌ Build or tests failed"
+            exit 1
+          fi
+          
+          if [ "$DEPLOY_STATUS" != "success" ] && [ "$DEPLOY_STATUS" != "skipped" ]; then
+            echo "❌ Deployment failed"
             exit 1
           fi
           
